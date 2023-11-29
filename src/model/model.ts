@@ -47,19 +47,41 @@ const validateStudentCharacter = (name = "", lastname = ""): Charater[] => {
   return characters;
 };
 
-const params = process.argv.splice(2);
+// const params = process.argv.splice(2);
 
-validateStudentCharacter(params[2]);
+// validateStudentCharacter(params[2]);
 
 // Daniel Radcliffe -> dan
-const getCharacterByActor = (actor: string): Charater[] => {
-  return [];
+const getCharacterById = (id: string): Charater[]  => {
+  const data = getAllCharacters();
+  //const book = cleanBooksDB.find((book) => book.id === id);
+  const foundId: Charater[] = data.find((actor:any) => actor.id === id) //! VER QUE ONDA ESTE
+
+  if (foundId){
+    return foundId
+  }else{
+    return[]
+  }
 };
 
-const showWandData = (name: string): Charater | undefined => {
+
+const showWandData = (id: string): Charater | undefined => {
+  const data = getAllCharacters();
   return;
 };
 
 const filterByHouse = (house: string): Charater[] => {
-  return [];
+  const data = getAllCharacters();
+  const arrayCharacters = data.filter((character: Charater)=>{
+    const lowerHouse = character.house.toLowerCase();
+    if(lowerHouse.includes(house.toLowerCase())){
+      return character
+    }
+  })
+  console.log(arrayCharacters);
+
+  return arrayCharacters;
 };
+
+const filtrarPorCasa = filterByHouse("gr")
+console.log(filtrarPorCasa);
