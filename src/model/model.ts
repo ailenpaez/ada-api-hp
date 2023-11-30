@@ -52,36 +52,45 @@ const validateStudentCharacter = (name = "", lastname = ""): Charater[] => {
 // validateStudentCharacter(params[2]);
 
 // Daniel Radcliffe -> dan
-const getCharacterById = (id: string): Charater[]  => {
+const getCharacterById = (id: string): Charater | undefined => {
   const data = getAllCharacters();
-  //const book = cleanBooksDB.find((book) => book.id === id);
-  const foundId: Charater[] = data.find((actor:any) => actor.id === id) //! VER QUE ONDA ESTE
+  const foundCharacter = data.find(
+    (character: Charater) => character.id === id
+  );
+  return foundCharacter;
+};
 
-  if (foundId){
-    return foundId
-  }else{
-    return[]
+const showWandData = (id: string): Charater | undefined | string => {
+  const data = getAllCharacters();
+  const foundCharacter = data.find(
+    (character: Charater) => character.id === id
+  );
+  if (foundCharacter.id === id) {
+    return foundCharacter.wand;
   }
 };
 
-
-const showWandData = (id: string): Charater | undefined => {
-  const data = getAllCharacters();
-  return;
+const showdataWand = (wandData: any) => {
+  console.log(
+    `La varita está construida en madera ${wandData.wood}, la escencia es de ${wandData.core} y la longitud es de ${wandData.length * 2.54}cm.`
+  );
 };
+
+const mostrarVarita = showWandData("ca3827f0-375a-4891-aaa5-f5e8a5bad225");
+console.log(mostrarVarita);
 
 const filterByHouse = (house: string): Charater[] => {
   const data = getAllCharacters();
-  const arrayCharacters = data.filter((character: Charater)=>{
+  const arrayCharacters = data.filter((character: Charater) => {
     const lowerHouse = character.house.toLowerCase();
-    if(lowerHouse.includes(house.toLowerCase())){
-      return character
+    if (lowerHouse.includes(house.toLowerCase())) {
+      return character;
     }
-  })
+  });
   console.log(arrayCharacters);
 
   return arrayCharacters;
 };
 
-const filtrarPorCasa = filterByHouse("gr")
-console.log(filtrarPorCasa);
+// const filtrarPorCasa = filterByHouse("gr")
+// console.log(filtrarPorCasa);
